@@ -23,10 +23,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $nama = fake()->name();
+        $username = str()->slug($nama, '_');
+        $email = $username . '@' . $this->faker->randomElement(['mail.com', 'gmail.com']);
         return [
-            'name' => fake()->name(),
-            'username' => fake()->unique()->username(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $nama,
+            'username' => $username,
+            'email' => $email,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'phone' => $this->faker->phoneNumber(),
@@ -34,6 +37,19 @@ class UserFactory extends Factory
             'status_user' => $this->faker->randomElement(['aktif', 'tidak aktif', 'diblokir']),
             'remember_token' => Str::random(10),
         ];
+
+        // versi original
+        // return [
+        //     'name' => fake()->name(),
+        //     'username' => fake()->unique()->username(),
+        //     'email' => fake()->unique()->safeEmail(),
+        //     'email_verified_at' => now(),
+        //     'password' => static::$password ??= Hash::make('password'),
+        //     'phone' => $this->faker->phoneNumber(),
+        //     'address' => $this->faker->address(),
+        //     'status_user' => $this->faker->randomElement(['aktif', 'tidak aktif', 'diblokir']),
+        //     'remember_token' => Str::random(10),
+        // ];
     }
 
     /**

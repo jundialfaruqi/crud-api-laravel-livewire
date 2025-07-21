@@ -116,7 +116,8 @@
                         <path d="M7 11l5 5l5 -5" />
                         <path d="M12 4l0 12" />
                     </svg>
-                    Download</a>
+                    Download
+                </a>
                 <div class="dropdown-menu rounded-4">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
@@ -139,16 +140,18 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('keydown', function(event) {
-        // Check if Ctrl+K is pressed
-        if (event.ctrlKey && event.key === 'k') {
-            event.preventDefault(); // Prevent default browser behavior
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.focus();
-                searchInput.select(); // Optional: select all text in the input
+@push('footerScripts')
+    <script>
+        document.addEventListener('keydown', function(event) {
+            // Check if Ctrl+K is pressed
+            if (event.ctrlKey && event.key === 'k') {
+                event.preventDefault(); // Prevent default browser behavior
+                const searchInput = document.getElementById('search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select(); // Optional: select all text in the input
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
+@endpush
