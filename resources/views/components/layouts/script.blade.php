@@ -11,25 +11,33 @@
         toastMessage.innerHTML = `${message}`;
         toastTime.textContent = time;
 
-        // Show toast with animation
+        // Show toast with smooth animation
         toastElement.style.display = 'block';
-        toastElement.classList.add('show');
+        // Small delay to ensure display is set before animation
+        requestAnimationFrame(() => {
+            toastElement.classList.add('show');
+        });
 
-        // Auto hide after 5 seconds
+        // Auto hide after 5 seconds with smooth animation
         setTimeout(() => {
-            toastElement.classList.remove('show');
-            setTimeout(() => {
-                toastElement.style.display = 'none';
-            }, 300);
+            hideToast();
         }, 5000);
     }
 
-    // Close toast function
+    // Close toast function with smooth animation
     function closeToast() {
+        hideToast();
+    }
+
+    // Hide toast with smooth animation
+    function hideToast() {
         const toastElement = document.getElementById('toast-notification');
         toastElement.classList.remove('show');
+        toastElement.classList.add('hide');
+        
         setTimeout(() => {
             toastElement.style.display = 'none';
+            toastElement.classList.remove('hide');
         }, 300);
     }
 

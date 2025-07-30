@@ -1,5 +1,6 @@
 <link data-navigate-once rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css" />
+<link data-navigate-once rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 <style>
     @import url('https://rsms.me/inter/inter.css');
 

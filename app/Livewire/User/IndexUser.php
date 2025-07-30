@@ -163,7 +163,7 @@ class IndexUser extends Component
             'photo' => $photoPath,
             'password' => Hash::make($this->password),
         ]);
-        $this->showToast(message: '✅ User ' . $this->username . ' berhasil ditambahkan');
+        $this->showToast(message: ' User ' . $this->username . ' berhasil ditambahkan 👍');
         $this->hideForm();
         $this->resetPage();
     }
