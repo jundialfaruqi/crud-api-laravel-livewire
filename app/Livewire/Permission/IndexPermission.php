@@ -108,13 +108,13 @@ class IndexPermission extends Component
                     'name' => $this->name,
                     'guard_name' => $this->guard_name,
                 ]);
-                $this->showToast('Permission berhasil diperbarui!', 'success');
+                $this->showToast(message: ' Permission ' . $this->name . ' berhasil diperbarui 👍');
             } else {
                 Permission::create([
                     'name' => $this->name,
                     'guard_name' => $this->guard_name,
                 ]);
-                $this->showToast('Permission berhasil ditambahkan!', 'success');
+                $this->showToast(message: ' Permission ' . $this->name . ' berhasil ditambahkan 👍');
             }
 
             $this->resetForm();
@@ -137,7 +137,7 @@ class IndexPermission extends Component
         try {
             $permission = Permission::findOrFail($this->deletePermissionId);
             $permission->delete();
-            $this->showToast('Permission berhasil dihapus!', 'success');
+            $this->showToast(message: ' Permission ' . $this->deletePermissionName . ' berhasil dihapus 👍');
             $this->cancelDelete();
         } catch (\Exception $e) {
             $this->showToast('Terjadi kesalahan: ' . $e->getMessage(), 'error');
@@ -183,7 +183,7 @@ class IndexPermission extends Component
         $permissions = Permission::query()
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
-                      ->orWhere('guard_name', 'like', '%' . $this->search . '%');
+                    ->orWhere('guard_name', 'like', '%' . $this->search . '%');
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->paginate);

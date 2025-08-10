@@ -123,7 +123,7 @@ class IndexRole extends Component
                     ->pluck('name')
                     ->toArray();
                 $role->syncPermissions($permissionNames);
-                $this->showToast('Role berhasil diperbarui!', 'success');
+                $this->showToast(message: ' Role ' . $this->name . ' berhasil diperbarui 👍');
             } else {
                 $role = Role::create([
                     'name' => $this->name,
@@ -134,7 +134,7 @@ class IndexRole extends Component
                     ->pluck('name')
                     ->toArray();
                 $role->syncPermissions($permissionNames);
-                $this->showToast('Role berhasil ditambahkan!', 'success');
+                $this->showToast(message: ' Role ' . $this->name . ' berhasil ditambahkan 👍');
             }
 
             $this->resetForm();
@@ -157,7 +157,7 @@ class IndexRole extends Component
         try {
             $role = Role::findOrFail($this->deleteRoleId);
             $role->delete();
-            $this->showToast('Role berhasil dihapus!', 'success');
+            $this->showToast(message: ' Role ' . $this->deleteRoleName . ' berhasil dihapus 👍');
             $this->cancelDelete();
         } catch (\Exception $e) {
             $this->showToast('Terjadi kesalahan: ' . $e->getMessage(), 'error');

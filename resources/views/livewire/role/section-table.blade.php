@@ -53,11 +53,19 @@
                     @if ($showColumns['permissions'])
                         <td class="sort-tags">
                             <div class="badges-list">
-                                @foreach ($roleData->permissions as $permission)
-                                    <span class="badge">{{ $permission->name }}</span>
-                                @endforeach
                                 @if ($roleData->permissions->count() == 0)
                                     <span class="text-muted">Tidak ada permission</span>
+                                @else
+                                    @foreach ($roleData->permissions->take(7) as $permission)
+                                        <span class="badge">{{ $permission->name }}</span>
+                                    @endforeach
+                                    @if ($roleData->permissions->count() > 7)
+                                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#permissionsModal{{ $roleData->id }}">
+                                            Lihat Semua ({{ $roleData->permissions->count() }})
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
                         </td>
@@ -111,5 +119,42 @@
 <div class="card-footer rounded-4 shadow-sm py-2">
     {{ $roles->links() }}
 </div>
+
+<!-- Modal untuk menampilkan semua permissions -->
+@foreach ($roles as $roleData)
+    @if ($roleData->permissions->count() > 7)
+        <div class="modal fade" id="permissionsModal{{ $roleData->id }}" tabindex="-1" aria-labelledby="permissionsModalLabel{{ $roleData->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="permissionsModalLabel{{ $roleData->id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler-shield-check me-2">
+                                <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                            Permissions untuk Role: {{ $roleData->name }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="text-muted mb-3">Total {{ $roleData->permissions->count() }} permissions:</p>
+                                <div class="badges-list">
+                                    @foreach ($roleData->permissions as $permission)
+                                        <span class="badge badge-outline me-1 mb-1">{{ $permission->name }}</span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
 
 @include('livewire.role.section-modal-delete')
