@@ -1,7 +1,7 @@
 <div class="row w-full">
     <div class="col">
         <div class="d-flex align-items-center">
-            <span class="avatar me-2 rounded-circle mb-3 mb-md-0">
+            <span class="avatar me-2 rounded-circle mb-3 mb-md-0 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-users">
@@ -22,8 +22,8 @@
     </div>
     <div class="col-md-auto col-sm-12">
         <div class="ms-auto d-flex flex-wrap btn-list">
-            <div class="input-group input-group-flat w-auto">
-                <span class="input-group-text">
+            <div class="input-group input-group-flat w-auto rounded-4">
+                <span class="input-group-text rounded-start-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="icon icon-1">
@@ -33,7 +33,7 @@
                 </span>
                 <input wire:model.live="search" type="text" class="form-control" autocomplete="off"
                     id="search-input" />
-                <span class="input-group-text">
+                <span class="input-group-text rounded-end-4">
                     <kbd>Ctrl</kbd> + <kbd>K</kbd>
                 </span>
             </div>

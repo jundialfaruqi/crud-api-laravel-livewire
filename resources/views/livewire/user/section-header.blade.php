@@ -40,8 +40,7 @@
                         <span wire:loading.remove wire:target="showAddForm">Tambah User</span>
                         <span wire:loading wire:target="showAddForm">Loading...</span>
                     </button>
-                    <a href="#" class="btn btn-primary d-sm-none btn-icon rounded-circle" data-bs-toggle="modal"
-                        data-bs-target="#modal-report" aria-label="Create new report">
+                    <button type="button" wire:click="showAddForm" class="btn btn-primary d-sm-none btn-icon rounded-circle" aria-label="Tambah User">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +48,7 @@
                             <path d="M12 5l0 14" />
                             <path d="M5 12l14 0" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Auth\Login;
 use App\Livewire\Dashboard\IndexDashboard;
 use App\Livewire\User\IndexUser;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', IndexDashboard::class)->name('dashboard.index');
+Route::get('/', function () {
+    return redirect()->route('dashboard.index');
+})->middleware('auth');
 
-Route::get('/user', IndexUser::class)->name('user.index');
+Route::get('/dashboard', IndexDashboard::class)->name('dashboard.index')->middleware('auth');
+
+Route::get('/user', IndexUser::class)->name('user.index')->middleware('auth');
+
+Route::get('/login', Login::class)->name('auth.login');

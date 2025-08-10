@@ -89,8 +89,8 @@
                     @endif
                     <td class="py-0">
                         <div class="btn-actions">
-                            <a href="#" class="btn btn-action" aria-label="Edit" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Ubah">
+                            <button wire:click="showEditForm({{ $userData->id }})" class="btn btn-action"
+                                aria-label="Edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Ubah">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -98,7 +98,7 @@
                                     <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                     <path d="M16 5l3 3" />
                                 </svg>
-                            </a>
+                            </button>
                             <a href="#" class="btn btn-action" aria-label="Copy">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -109,8 +109,9 @@
                                         d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
                                 </svg>
                             </a>
-                            <a href="#" class="btn btn-action" aria-label="Delete" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Hapus">
+                            <button type="button" class="btn btn-action" aria-label="Delete" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="Hapus"
+                                wire:click="confirmDeleteModal({{ $userData->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -120,7 +121,7 @@
                                     <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                                     <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                                 </svg>
-                            </a>
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -131,3 +132,5 @@
 <div class="card-footer rounded-4 shadow-sm py-2">
     {{ $user->links() }}
 </div>
+
+@include('livewire.user.section-modal-delete')
