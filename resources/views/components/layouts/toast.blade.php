@@ -1,4 +1,4 @@
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
     <div class="toast rounded-4 shadow-sm" id="toast-notification" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header rounded-top-4">
             <span class="me-2" id="toast-avatar">
