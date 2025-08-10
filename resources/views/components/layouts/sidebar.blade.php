@@ -33,56 +33,104 @@
         </div>
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3">
-                <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
-                    <a wire:navigate
-                        class="nav-link mx-3 {{ Route::is('dashboard.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
-                        href="{{ route('dashboard.index') }}">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                            </svg>
-                        </span>
-                        <span class="nav-link-title">
-                            Dashboard
-                        </span>
-                    </a>
-                </li>
+                @can('View Dashboard')
+                    <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
+                        <a wire:navigate
+                            class="nav-link mx-3 {{ Route::is('dashboard.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
+                            href="{{ route('dashboard.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
+                @endcan
                 <div class="hr-text mb-3 mt-3">
                     <b>Main Menu</b>
                 </div>
-                <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
-                    <a wire:navigate
-                        class="nav-link mx-3 {{ Route::is('user.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
-                        href="{{ route('user.index') }}">
-                        <span class="nav-link-icon d-md-none d-lg-inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                            </svg>
-                        </span>
-                        <span class="nav-link-title">
-                            Manajemen User
-                        </span>
-                    </a>
-                </li>
+                @can('View User')
+                    <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
+                        <a wire:navigate
+                            class="nav-link mx-3 {{ Route::is('user.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
+                            href="{{ route('user.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Manajemen User
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+                @can('View Role')
+                    <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
+                        <a wire:navigate
+                            class="nav-link mx-3 {{ Route::is('role.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
+                            href="{{ route('role.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h2" />
+                                    <path
+                                        d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" />
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                User Role
+                            </span>
+                        </a>
+                    </li>
+                @endcan
+                @can('View Permission')
+                    <li class="nav-item btn-animate-icon btn-animate-icon-pulse">
+                        <a wire:navigate
+                            class="nav-link mx-3 {{ Route::is('permission.index') ? 'border mx-3 rounded-4 bg-primary-subtle shadow-sm' : '' }}"
+                            href="{{ route('permission.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-key">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" />
+                                    <path d="M15 9h.01" />
+                                </svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Permission
+                            </span>
+                        </a>
+                    </li>
+                @endcan
                 {{-- Navigasi Tema --}}
                 <li class="nav-item dropdown mt-auto d-none d-lg-block">
-                    <a href="#" class="nav-link dropdown-toggle mx-3 border rounded-3" data-bs-toggle="dropdown"
-                        role="button" aria-expanded="false">
+                    <a href="#" class="nav-link dropdown-toggle mx-3 border rounded-3"
+                        data-bs-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-color-swatch"
-                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path
                                     d="M7 21h10a2 2 0 0 0 2 -2v-10a2 2 0 0 0 -2 -2h-4l-2 -3l-2 3h-4a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2z" />

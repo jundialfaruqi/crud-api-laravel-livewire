@@ -107,6 +107,19 @@
                                 @enderror
                             </div>
                             <div>
+                                <label class="form-label">Role</label>
+                                <select class="form-select @error('selectedRole') is-invalid @enderror" 
+                                        wire:model.defer="selectedRole">
+                                    <option value="">Pilih Role</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('selectedRole')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div>
                                 <label class="form-label">Password
                                     @if (!$editMode)
                                         <span class="text-danger">*</span>

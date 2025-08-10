@@ -152,8 +152,10 @@
                     <span class="avatar avatar-sm rounded-circle"
                         style="background-image: url(./static/avatars/000m.jpg)"></span>
                     <div class="d-none d-xl-block ps-2">
-                        <div><b>M. Jundi Al faruqi</b></div>
-                        <div class="mt-1 small text-secondary">Super Admin</div>
+                        <div><b>{{ auth()->user()->name }}</b></div>
+                        <div class="mt-1 small text-secondary">
+                            {{ auth()->user()->roles->pluck('name')->implode(', ') }}
+                        </div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow rounded-4">
@@ -162,7 +164,10 @@
                     <a href="#" class="dropdown-item">Feedback</a>
                     <div class="dropdown-divider"></div>
                     <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="dropdown-item border-0 bg-transparent">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>

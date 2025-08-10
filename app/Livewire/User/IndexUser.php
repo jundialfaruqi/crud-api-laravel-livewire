@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,6 +46,8 @@ class IndexUser extends Component
     public $photo;
     public $password = '';
     public $currentPhoto = null;
+    public $roles = [];
+    public $selectedRole = '';
 
     // Delete properties
     public $showDeleteModal = false;
@@ -101,6 +104,11 @@ class IndexUser extends Component
         $this->resetPage();
     }
 
+    public function mount()
+    {
+        $this->roles = Role::all();
+    }
+
     public function showAddForm()
     {
         $this->editMode = false;
@@ -124,6 +132,7 @@ class IndexUser extends Component
         $this->address = $user->address;
         $this->status_user = $user->status_user;
         $this->currentPhoto = $user->photo;
+        $this->selectedRole = $user->roles->first() ? $user->roles->first()->name : '';
         $this->password = ''; // Reset password field
     }
 
@@ -147,6 +156,7 @@ class IndexUser extends Component
         $this->photo = null;
         $this->password = '';
         $this->currentPhoto = null;
+        $this->selectedRole = '';
         $this->resetValidation();
     }
 
@@ -171,6 +181,7 @@ class IndexUser extends Component
                 'status_user' => 'required|in:aktif,tidak aktif,diblokir',
                 'photo' => 'nullable|image|max:2048',
                 'password' => 'required|string|min:8|max:12',
+                'selectedRole' => 'nullable|string',
             ],
             [
                 'name.required' => 'Nama harus diisi',
@@ -192,7 +203,7 @@ class IndexUser extends Component
             $photoPath = $this->photo->store('photos', 'public');
         }
 
-        User::create([
+        $user = User::create([
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
@@ -202,6 +213,11 @@ class IndexUser extends Component
             'photo' => $photoPath,
             'password' => Hash::make($this->password),
         ]);
+
+        // Assign role to user
+        if (!empty($this->selectedRole)) {
+            $user->assignRole($this->selectedRole);
+        }
         $this->showToast(message: ' User ' . $this->username . ' berhasil ditambahkan 👍');
         $this->hideForm();
         $this->resetPage();
@@ -217,6 +233,7 @@ class IndexUser extends Component
             'address' => 'required|string',
             'status_user' => 'required|in:aktif,tidak aktif,diblokir',
             'photo' => 'nullable|image|max:2048',
+            'selectedRole' => 'nullable|string',
         ];
 
         // Only validate password if it's provided
@@ -267,6 +284,14 @@ class IndexUser extends Component
         }
 
         $user->update($updateData);
+
+        // Sync role
+        if (!empty($this->selectedRole)) {
+            $user->syncRoles([$this->selectedRole]);
+        } else {
+            $user->syncRoles([]);
+        }
+
         $this->showToast(message: ' User ' . $this->username . ' berhasil diperbarui 👍');
         $this->hideForm();
         $this->resetPage();
@@ -306,7 +331,7 @@ class IndexUser extends Component
 
     public function render()
     {
-        $query = User::select('id', 'name', 'username', 'email', 'phone', 'status_user');
+        $query = User::select('id', 'name', 'username', 'email', 'phone', 'status_user')->with('roles');
 
         if ($this->search) {
             $query->where(function ($q) {
@@ -321,6 +346,9 @@ class IndexUser extends Component
         $user = $query->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->paginate);
 
-        return view('livewire.user.index-user', compact('user'));
+        return view('livewire.user.index-user', [
+            'user' => $user,
+            'roles' => $this->roles
+        ]);
     }
 }

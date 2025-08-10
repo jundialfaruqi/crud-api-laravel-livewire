@@ -5,42 +5,21 @@
                 @if ($showColumns['name'])
                     <th>
                         <button class="table-sort d-flex justify-content-between" wire:click="sortBy('name')">
-                            Nama
+                            Nama Role
                         </button>
                     </th>
                 @endif
-                @if ($showColumns['username'])
+                @if ($showColumns['guard_name'])
                     <th>
-                        <button class="table-sort d-flex justify-content-between" wire:click="sortBy('username')">
-                            Username
+                        <button class="table-sort d-flex justify-content-between" wire:click="sortBy('guard_name')">
+                            Guard Name
                         </button>
                     </th>
                 @endif
-                @if ($showColumns['email'])
-                    <th>
-                        <button class="table-sort d-flex justify-content-between" wire:click="sortBy('email')">
-                            Email
-                        </button>
-                    </th>
-                @endif
-                @if ($showColumns['phone'])
-                    <th>
-                        <button class="table-sort d-flex justify-content-between" wire:click="sortBy('phone')">
-                            No Handphone
-                        </button>
-                    </th>
-                @endif
-                @if ($showColumns['status_user'])
-                    <th>
-                        <button class="table-sort d-flex justify-content-between" wire:click="sortBy('status_user')">
-                            Status
-                        </button>
-                    </th>
-                @endif
-                @if ($showColumns['roles'])
+                @if ($showColumns['permissions'])
                     <th>
                         <button class="table-sort d-flex justify-content-between" disabled>
-                            Hak Akses
+                            Permissions
                         </button>
                     </th>
                 @endif
@@ -49,51 +28,44 @@
             </tr>
         </thead>
         <tbody class="table-tbody">
-            @foreach ($user as $userData)
+            @foreach ($roles as $roleData)
                 <tr>
                     @if ($showColumns['name'])
                         <td class="sort-name">
-                            <span class="avatar avatar-xs me-2 rounded-circle bg-primary-subtle"
-                                style="background-image: url({{ asset('image/profil/user-photo-default.png') }})">
+                            <span class="avatar avatar-xs me-2 rounded-circle bg-primary-subtle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler-shield-check">
+                                    <path
+                                        d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+                                    <path d="M9 12l2 2l4 -4" />
+                                </svg>
                             </span>
-                            {{ $userData->name }}
+                            {{ $roleData->name }}
                         </td>
                     @endif
-                    @if ($showColumns['username'])
-                        <td>{{ $userData->username }}</td>
-                    @endif
-                    @if ($showColumns['email'])
-                        <td>{{ $userData->email }}</td>
-                    @endif
-                    @if ($showColumns['phone'])
-                        <td>{{ $userData->phone }}</td>
-                    @endif
-                    @if ($showColumns['status_user'])
+                    @if ($showColumns['guard_name'])
                         <td>
-                            @if ($userData->status_user === 'aktif')
-                                <span class="badge bg-success-lt">Aktif</span>
-                            @elseif ($userData->status_user === 'tidak aktif')
-                                <span class="badge bg-danger-lt">Tidak Aktif</span>
-                            @elseif ($userData->status_user === 'diblokir')
-                                <span class="badge bg-warning-lt">Diblokir</span>
-                            @endif
+                            <span class="badge bg-secondary-lt">{{ $roleData->guard_name }}</span>
                         </td>
                     @endif
-                    @if ($showColumns['roles'])
+                    @if ($showColumns['permissions'])
                         <td class="sort-tags">
                             <div class="badges-list">
-                                @forelse ($userData->roles as $role)
-                                    <span class="badge">{{ $role->name }}</span>
-                                @empty
-                                    <span class="badge bg-secondary-lt">Tidak ada hak akses</span>
-                                @endforelse
+                                @foreach ($roleData->permissions as $permission)
+                                    <span class="badge">{{ $permission->name }}</span>
+                                @endforeach
+                                @if ($roleData->permissions->count() == 0)
+                                    <span class="text-muted">Tidak ada permission</span>
+                                @endif
                             </div>
                         </td>
                     @endif
                     <td class="py-0">
                         <div class="btn-actions">
-                            @can('Edit User')
-                                <button wire:click="showEditForm({{ $userData->id }})" class="btn btn-action"
+                            @can('Edit Role')
+                                <button wire:click="showEditForm({{ $roleData->id }})" class="btn btn-action"
                                     aria-label="Edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Ubah">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -114,10 +86,10 @@
                                         d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
                                 </svg>
                             </a>
-                            @can('Delete User')
+                            @can('Delete Role')
                                 <button type="button" class="btn btn-action" aria-label="Delete" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="Hapus"
-                                    wire:click="confirmDeleteModal({{ $userData->id }})">
+                                    wire:click="confirmDeleteModal({{ $roleData->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -137,7 +109,7 @@
     </table>
 </div>
 <div class="card-footer rounded-4 shadow-sm py-2">
-    {{ $user->links() }}
+    {{ $roles->links() }}
 </div>
 
-@include('livewire.user.section-modal-delete')
+@include('livewire.role.section-modal-delete')
