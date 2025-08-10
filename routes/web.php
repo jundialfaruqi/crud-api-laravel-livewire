@@ -21,8 +21,8 @@ use Spatie\Permission\Contracts\Permission;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.index');
-})->middleware('auth');
+    return view('landing');
+});
 
 Route::get('/dashboard', IndexDashboard::class)->name('dashboard.index')->middleware('auth');
 
