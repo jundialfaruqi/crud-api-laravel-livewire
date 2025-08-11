@@ -7,7 +7,7 @@ use App\Livewire\Role\IndexRole;
 use App\Livewire\Permission\IndexPermission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Contracts\Permission;
+// use Spatie\Permission\Contracts\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/dashboard', IndexDashboard::class)->name('dashboard.index')->middleware('auth');
+Route::get('/dashboard', IndexDashboard::class)->name('dashboard.index')->middleware('auth', 'permission:View Dashboard');
 
 Route::get('/user', IndexUser::class)->name('user.index')->middleware(['auth', 'permission:View User']);
 

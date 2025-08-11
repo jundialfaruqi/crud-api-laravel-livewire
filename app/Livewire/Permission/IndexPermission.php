@@ -63,6 +63,22 @@ class IndexPermission extends Component
         $this->resetPage();
     }
 
+    public function selectAllColumns()
+    {
+        $this->showColumns = [
+            'name' => true,
+            'guard_name' => true,
+        ];
+    }
+
+    public function resetColumns()
+    {
+        $this->showColumns = [
+            'name' => true,
+            'guard_name' => true,
+        ];
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
